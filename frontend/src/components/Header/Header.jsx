@@ -2,6 +2,7 @@ import Icon from "./user.svg";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -10,9 +11,9 @@ const Header = () => {
   useEffect(() => {
     const handler = (event) => {
       const el = ref.current;
-      console.log("el", el);
-      console.log("event.target", event.target);
-      console.log(el.contains(event.target));
+      // console.log("el", el);
+      // console.log("event.target", event.target);
+      // console.log(el.contains(event.target));
       if (!el || el.contains(event.target)) {
         return;
       }
@@ -28,6 +29,15 @@ const Header = () => {
     <Wrapper>
       <Logo>アニナカ</Logo>
       <RightArea>
+        <PageTitleArea>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <PageTitle>Home</PageTitle>
+          </Link>
+          <Link to="/friend-lsit" style={{ textDecoration: "none" }}>
+            <PageTitle>フレンド</PageTitle>
+          </Link>
+        </PageTitleArea>
+
         <UserIcon src={Icon} onClick={() => setIsShowMenu(!isShowMenu)} />
         {isShowMenu && (
           <Menu ref={ref}>
@@ -54,9 +64,9 @@ const Logo = styled.span`
 `;
 const RightArea = styled.div`
   margin-right: 20px;
+  display: flex;
 `;
 const UserIcon = styled.img`
-  width: 100%;
   height: 100%;
   background-color: #ff7f50;
   border-radius: 50%;
@@ -79,6 +89,19 @@ const MenuItem = styled.li`
 
   :hover {
     background-color: #dad5d5;
+  }
+`;
+
+const PageTitleArea = styled.span`
+  display: flex;
+`;
+const PageTitle = styled.p`
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin-right: 20px;
+  :hover {
+    color: #dad5d5;
   }
 `;
 export default Header;

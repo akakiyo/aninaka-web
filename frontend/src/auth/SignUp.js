@@ -2,11 +2,25 @@ import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import useFirebaseAuth from "./useFirebaseAuth";
+import axios from "axios";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const { signup, isAuthenticated } = useFirebaseAuth();
+  const signupProcess = async (userName, email, password) => {
+    try {
+      const user_id = await signup(email, password);
+      await axios.post(`http://localhost:8080/personal`, {
+        user_id,
+        name: userName,
+        mail_address: email,
+      });
+    } catch {
+      alert("アカウント作成に失敗しました");
+    }
+  };
 
   if (isAuthenticated) {
     return <Navigate to="/" />;
@@ -14,6 +28,14 @@ const SignUp = () => {
   return (
     <Body>
       <Title>アカウント作成</Title>
+      <Email>
+        ユーザーネーム：
+        <input
+          value={userName}
+          type="userName"
+          onChange={(e) => setUserName(e.target.value)}
+        />
+      </Email>
       <Email>
         Email：
         <input
@@ -30,7 +52,7 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Password>
-      <SubmitButton onClick={() => signup(email, password)}>
+      <SubmitButton onClick={() => signupProcess(userName, email, password)}>
         アカウント作成
       </SubmitButton>
       <HorizontalLine />

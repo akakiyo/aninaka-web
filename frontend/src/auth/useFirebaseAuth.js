@@ -35,10 +35,11 @@ const useFirebaseAuth = () => {
     setIsLoading(true);
   };
 
-  const signup = useCallback((email, password) => {
-    firebaseAuth
+  const signup = useCallback(async (email, password) => {
+    const user = await firebaseAuth
       .createUserWithEmailAndPassword(email, password)
       .catch((err) => alert(err));
+    return user.user.multiFactor.user.uid;
   }, []);
 
   const login = useCallback((email, password) => {

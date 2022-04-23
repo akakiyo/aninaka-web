@@ -1,10 +1,11 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../sequelize");
 
-const personal_infos = sequelize.define("personal_infos", {
-  personal_id: {
-    type: DataTypes.INTEGER,
+const user_infos = sequelize.define("user_infos", {
+  user_id: {
+    type: DataTypes.TEXT,
     primaryKey: true,
+    allowNull: false,
   },
   name: {
     type: DataTypes.TEXT,
@@ -17,23 +18,49 @@ const personal_infos = sequelize.define("personal_infos", {
 });
 
 const personal_anime_infos = sequelize.define("personal_anime_infos", {
-  personal_id: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    references: {
-      model: personal_infoss,
-      key: "personal_id",
-    },
+    autoIncrement: true,
   },
-  anime_title: {
+  user_id: {
+    type: DataTypes.TEXT,
+    primaryKey: true,
+  },
+  title: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  sub_title: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
   story_number: {
     type: DataTypes.INTEGER,
+  },
+  rating: {
+    type: DataTypes.DECIMAL,
+  },
+  viewingApp: {
+    type: DataTypes.TEXT,
+  },
+  date: {
+    type: DataTypes.DATE,
     allowNull: false,
   },
-  title: {
+});
+
+const friend_infos = sequelize.define("friend_infos", {
+  id: {
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+  },
+  user_id: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  friend_id: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
@@ -43,19 +70,8 @@ const personal_anime_infos = sequelize.define("personal_anime_infos", {
   },
 });
 
-const friends = sequelize.define("personal_infos", {
-  personal_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-  },
-  friend_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-  },
-});
-
 module.exports = {
-  personal_infos,
+  user_infos,
   personal_anime_infos,
-  friends,
+  friend_infos,
 };
