@@ -4,6 +4,7 @@ import axios from "axios";
 import Icon from "./user.svg";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
 import { useAlert } from "react-alert";
+import SearchIcon from "@mui/icons-material/Search";
 
 const AddFriend = () => {
   const customAlert = useAlert();
@@ -42,7 +43,9 @@ const AddFriend = () => {
           placeholder="idまたはユーザ名を入力してください"
           onChange={(event) => setSearchWord(event.target.value)}
         />
-        <SearchButton onClick={() => searchFriend()}>検索</SearchButton>
+        <SearchButton onClick={() => searchFriend()}>
+          <SearchIcon />
+        </SearchButton>
       </InputArea>
       <Content>
         <div>ヒット件数：{findedUsers.length}</div>
@@ -68,9 +71,13 @@ const Wrapper = styled.div`
   height: 500px;
 `;
 const InputSearchWord = styled.input`
-  width: 500px;
+  width: 300px;
   height: 30px;
   margin: auto 0 auto 0;
+  border: 2px solid black;
+  color: black;
+  padding: 3px 10px;
+  border-radius: 20px;
 `;
 const InputArea = styled.div`
   display: flex;
@@ -79,7 +86,14 @@ const InputArea = styled.div`
 `;
 const SearchButton = styled.button`
   height: 35px;
-  margin: auto 0 auto 0;
+  margin: auto 0 auto -20px;
+  cursor: pointer;
+  border: none;
+  background: #000000;
+  color: #fff;
+  width: 3.5em;
+  height: 3em;
+  outline: none;
 `;
 const ListItem = styled.div`
   display: flex;
