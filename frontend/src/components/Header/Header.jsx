@@ -11,9 +11,6 @@ const Header = () => {
   useEffect(() => {
     const handler = (event) => {
       const el = ref.current;
-      // console.log("el", el);
-      // console.log("event.target", event.target);
-      // console.log(el.contains(event.target));
       if (!el || el.contains(event.target)) {
         return;
       }
@@ -27,7 +24,10 @@ const Header = () => {
   }, [ref]);
   return (
     <Wrapper>
-      <Logo>アニナカ</Logo>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <Logo>アニナカ</Logo>
+      </Link>
+
       <RightArea>
         <PageTitleArea>
           <Link to="/" style={{ textDecoration: "none" }}>

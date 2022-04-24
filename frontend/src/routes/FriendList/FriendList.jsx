@@ -1,35 +1,18 @@
 import { useEffect, useState } from "react";
-import List from "@mui/material/List";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import moment from "moment";
+import List from "@mui/material/List";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
-
-const mockFirend = [
-  {
-    name: "井戸はるき",
-    isWatching: true,
-    subTitle: "ポケットモンスター",
-    title: "ポケモンゲットだぜ",
-    storyNum: 1,
-    viewingApp: "dアニメストア",
-  },
-  {
-    name: "赤沢きよと",
-    isWatching: false,
-    animeTitle: "からかい上手の高木さん",
-    title: "クリスマス",
-    storyNum: 10,
-    viewingApp: "dアニメストア",
-  },
-];
 
 const FriendList = () => {
   const { currentUser } = useFirebaseAuth();
   const userId = currentUser.multiFactor.user.uid;
   const [viewingList, setViewingList] = useState();
+
   useEffect(() => {
     axios({
       method: "GET",
@@ -37,10 +20,9 @@ const FriendList = () => {
       params: { userId },
     }).then((res) => {
       setViewingList(res.data);
-      console.log(res.data);
     });
   }, [userId]);
-  console.log(viewingList);
+
   return (
     <Wrapper>
       <Link to="/add-friend">
@@ -57,6 +39,9 @@ const FriendList = () => {
                 <UpperRowContent>
                   <FriendName>{viewingAnime.name}</FriendName>
                   <AnimeTitle>{viewingAnime.title}</AnimeTitle>
+                  <p>
+                    {moment(viewingAnime.date).format("YYYY年M月D日H時mm分")}
+                  </p>
                 </UpperRowContent>
 
                 <LowerRowContent>
@@ -112,14 +97,6 @@ const StoryNum = styled.p`
 `;
 const Title = styled.p`
   width: 40%;
-`;
-const Circle = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
-  margin-left: auto;
-  background-color: ${(props) => (props.isWatching ? "green" : "red")};
 `;
 
 const TransitionAddAnime = styled.button`

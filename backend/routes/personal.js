@@ -9,7 +9,6 @@ router.post("/", async (req, res, next) => {
   try {
     //新規登録の処理
     await sequelize.transaction(async (trn) => {
-      console.log(req.body);
       const { user_id, name, mail_address } = req.body;
       await sequelize.sync();
       await user_infos.create(
@@ -59,7 +58,6 @@ router.get("/", async (req, res, next) => {
   try {
     //個人ページを返す
     const { userId } = req.query;
-    console.log(userId);
     const userName = (
       await sequelize.query(
         `SELECT name FROM user_infos WHERE user_id = '${userId}'`,
@@ -74,12 +72,14 @@ router.get("/", async (req, res, next) => {
         type: QueryTypes.SELECT,
       }
     );
-    console.log(animeList);
-    console.log(userName);
     res.json({ animeList, userName });
   } catch (err) {
     next(err);
   }
+});
+router.delete("/", async (req, res, next) => {
+  const { id } = req.query;
+  await sequelize.query(`DELETE FROM personal_anime_infos WHERE id = ${id}`);
 });
 
 module.exports = router;

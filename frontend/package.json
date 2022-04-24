@@ -14,6 +14,7 @@
     "firebase": "^9.6.11",
     "firebase-tools": "^10.6.0",
     "global": "^4.4.0",
+    "moment": "^2.29.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",

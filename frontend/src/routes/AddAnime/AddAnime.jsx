@@ -1,8 +1,9 @@
-import styled from "styled-components";
 import { useState } from "react";
-import ReactStars from "react-stars";
+import styled from "styled-components";
 import axios from "axios";
+import ReactStars from "react-stars";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
+
 const AddAnime = () => {
   const { currentUser } = useFirebaseAuth();
   const userId = currentUser.multiFactor.user.uid;
@@ -27,6 +28,7 @@ const AddAnime = () => {
       data,
     });
   };
+
   return (
     <>
       <div>視聴アニメの追加ページ</div>

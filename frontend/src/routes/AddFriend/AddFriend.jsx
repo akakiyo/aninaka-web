@@ -1,6 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
 import Icon from "./user.svg";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
 
@@ -19,6 +19,7 @@ const AddFriend = () => {
       setFindedUsers(res.data.findedUsers);
     });
   };
+
   const addFriend = (addFriendId) => {
     axios({
       method: "POST",
@@ -26,6 +27,7 @@ const AddFriend = () => {
       data: { addFriendId, userId },
     });
   };
+
   return (
     <>
       <InputArea>
