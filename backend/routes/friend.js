@@ -21,6 +21,7 @@ router.post("/", async (req, res, next) => {
         }
       );
     });
+    res.end();
   } catch (err) {
     next(err);
   }
@@ -54,7 +55,7 @@ router.get("/friend-list", async (req, res, next) => {
       await sequelize.query(
         `SELECT * FROM personal_anime_infos,user_infos WHERE personal_anime_infos.user_id = user_infos.user_id AND user_infos.user_id IN ('${friendIds.join(
           "','"
-        )}')`
+        )}') ORDER BY personal_anime_infos.date DESC`
       )
     )[0];
     res.json(viewingList);

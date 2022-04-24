@@ -10,7 +10,6 @@ router.post("/", async (req, res, next) => {
     //新規登録の処理
     await sequelize.transaction(async (trn) => {
       const { user_id, name, mail_address } = req.body;
-      await sequelize.sync();
       await user_infos.create(
         {
           user_id,
@@ -33,7 +32,6 @@ router.post("/add-anime", async (req, res, next) => {
     sequelize.transaction(async (trn) => {
       const { userId, title, storyNum, subTitle, starRating, viewingApp } =
         req.body;
-      await sequelize.sync();
       await personal_anime_infos.create(
         {
           user_id: userId,
@@ -49,6 +47,7 @@ router.post("/add-anime", async (req, res, next) => {
         }
       );
     });
+    res.end();
   } catch (err) {
     next(err);
   }
@@ -67,7 +66,7 @@ router.get("/", async (req, res, next) => {
       )
     )[0]["name"];
     const animeList = await sequelize.query(
-      `SELECT * FROM personal_anime_infos WHERE user_id = '${userId}'`,
+      `SELECT * FROM personal_anime_infos WHERE user_id = '${userId}' ORDER BY date DESC`,
       {
         type: QueryTypes.SELECT,
       }
@@ -80,6 +79,7 @@ router.get("/", async (req, res, next) => {
 router.delete("/", async (req, res, next) => {
   const { id } = req.query;
   await sequelize.query(`DELETE FROM personal_anime_infos WHERE id = ${id}`);
+  res.end();
 });
 
 module.exports = router;

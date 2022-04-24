@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useModal } from "react-hooks-use-modal";
 import styled from "styled-components";
 import axios from "axios";
 import ReactStars from "react-stars";
@@ -7,45 +7,58 @@ import moment from "moment";
 import Icon from "./user.svg";
 import deleteIcon from "./delete.svg";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
+import AddFriendModal from "./AddFriendModal";
 
 const Home = () => {
   const { currentUser } = useFirebaseAuth();
+  const [Modal, open, close, isOpen] = useModal("root", {
+    preventScroll: false,
+  });
   const [animeList, setAnimeList] = useState([]);
   const [userName, setUserName] = useState();
   const userId = currentUser.multiFactor.user.uid;
 
-  useEffect(() => {
-    axios({
+  const getNewAnimeData = async () => {
+    console.log("getData");
+    await axios({
       method: "GET",
       url: `http://localhost:8080/personal`,
       params: { userId: userId },
     }).then((res) => {
+      console.log(res.data);
       setUserName(res.data.userName);
       setAnimeList(res.data.animeList);
     });
-  }, [userId]);
+  };
 
-  const deleteAnime = (id) => {
-    axios({
+  useEffect(() => {
+    getNewAnimeData();
+  }, []);
+
+  const deleteAnime = async (id) => {
+    await axios({
       method: "DELETE",
       url: `http://localhost:8080/personal`,
       params: { id },
     });
+    await getNewAnimeData();
   };
 
   return (
     <Wrapper>
       <Left>
         <UserIcon src={Icon} />
-        <div>ユーザー名：{userName}</div>
-        <div>ID:{userId}</div>
+        <AccountInfo>
+          <div>ユーザー名： {userName}</div>
+          <div>ID: {userId}</div>
+        </AccountInfo>
       </Left>
       <Right>
         <TopItem>
           <p>過去の視聴履歴</p>
-          <TransitionAddAnimeLink to="/add-anime">
-            <TransitionAddAnime>視聴アニメの追加</TransitionAddAnime>
-          </TransitionAddAnimeLink>
+          <TransitionAddAnime onClick={open}>
+            視聴アニメの追加
+          </TransitionAddAnime>
         </TopItem>
         <List>
           {animeList.map((anime) => (
@@ -73,6 +86,9 @@ const Home = () => {
             </ListContent>
           ))}
         </List>
+        <Modal>
+          <AddFriendModal close={close} getNewAnimeData={getNewAnimeData} />
+        </Modal>
       </Right>
     </Wrapper>
   );
@@ -104,24 +120,27 @@ const AnimeTitle = styled.p`
   font-size: 20px;
 `;
 const Wrapper = styled.div`
-  display: flex;
+  /* display: flex; */
 `;
 const Left = styled.div`
   margin-left: 10px;
   border-style: solid;
   border-radius: 6px;
   border-color: gray;
-  width: 400px;
-  height: 500px;
+  display: flex;
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  /* height: 500px; */
   text-align: center;
+  margin-bottom: 30px;
 `;
 const Right = styled.div`
   margin-left: 10%;
-  width: 100%;
 `;
 const UserIcon = styled.img`
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
 `;
 const TopItem = styled.div`
@@ -134,7 +153,8 @@ const TransitionAddAnime = styled.button`
   border-radius: 6px;
   background-color: green;
   color: white;
-  /* margin-left: 300px; */
+  margin-left: auto;
+  margin-right: 200px;
 `;
 const ViewingApp = styled.p`
   margin-top: 20px;
@@ -158,8 +178,8 @@ const DeleteButton = styled.button`
   border-radius: 6px;
   border-color: #f5f5f5;
 `;
-const TransitionAddAnimeLink = styled(Link)`
-  margin-left: auto;
-  margin-right: 50px;
+const AccountInfo = styled.div`
+  margin: auto auto auto 20px;
+  text-align: left;
 `;
 export default Home;
