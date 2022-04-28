@@ -5,8 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import moment from "moment";
 import List from "@mui/material/List";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Icon from "./user.svg";
+import Icon from "../../icon/user.svg";
 import useFirebaseAuth from "../../auth/useFirebaseAuth";
 
 const FriendList = () => {

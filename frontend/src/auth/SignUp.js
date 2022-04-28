@@ -3,12 +3,14 @@ import { Navigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import useFirebaseAuth from "./useFirebaseAuth";
 import axios from "axios";
+import { TransitionOtherButton, DoneButton } from "./Buttons";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const { signup, isAuthenticated } = useFirebaseAuth();
+
   const signupProcess = async (userName, email, password) => {
     try {
       const user_id = await signup(email, password);
@@ -26,16 +28,16 @@ const SignUp = () => {
     return <Navigate to="/" />;
   }
   return (
-    <Body>
+    <Wrapper>
       <Title>アカウント作成</Title>
-      <Email>
+      <UserName>
         ユーザーネーム：
         <input
           value={userName}
           type="userName"
           onChange={(e) => setUserName(e.target.value)}
         />
-      </Email>
+      </UserName>
       <Email>
         Email：
         <input
@@ -52,41 +54,45 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Password>
-      <SubmitButton onClick={() => signupProcess(userName, email, password)}>
+      <DoneButton onClick={() => signupProcess(userName, email, password)}>
         アカウント作成
-      </SubmitButton>
+      </DoneButton>
       <HorizontalLine />
       <p>すでにアカウントがある方はこちら</p>
       <Link to="/login">
-        <TransitionCreateAccount data-testid="signup-button">
-          ログインはこちら
-        </TransitionCreateAccount>
+        <TransitionOtherButton>ログインはこちら</TransitionOtherButton>
       </Link>
-    </Body>
+    </Wrapper>
   );
 };
 
-const Body = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 20px;
 `;
 const Title = styled.div`
-  font-weight: bold;
   font-size: 30px;
+  font-weight: bold;
 `;
-const Email = styled.div`
+const UserName = styled.div`
+  margin: 40px 0 0 -40px;
   font-size: 24px;
-  margin: 40px 0 0 60px;
   input {
-    font-size: 24px;
     height: 43px;
     width: 200px;
+    font-size: 24px;
   }
 `;
-const HorizontalLine = styled.hr`
-  width: 100%;
+const Email = styled.div`
+  margin: 20px 0 0 60px;
+  font-size: 24px;
+  input {
+    height: 43px;
+    width: 200px;
+    font-size: 24px;
+  }
 `;
 const Password = styled.div`
   font-size: 24px;
@@ -97,29 +103,8 @@ const Password = styled.div`
     width: 200px;
   }
 `;
-const SubmitButton = styled.button`
-  color: #ff7f50;
-  font-size: 24px;
-  width: 340px;
-  height: 56px;
-  background: #faf9f9;
-  border: solid 1px #ff7f50;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  margin: 20px;
-`;
-const TransitionCreateAccount = styled.button`
-  color: #faf9f9;
-  font-size: 24px;
-  width: 340px;
-  height: 56px;
-  background: #ff7f50;
-  border: solid 1px #ff7f50;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  margin: 20px;
+const HorizontalLine = styled.hr`
+  width: 100%;
 `;
 
 export default SignUp;

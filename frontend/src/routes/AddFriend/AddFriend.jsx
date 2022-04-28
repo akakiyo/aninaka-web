@@ -1,17 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Icon from "./user.svg";
-import useFirebaseAuth from "../../auth/useFirebaseAuth";
 import { useAlert } from "react-alert";
 import SearchIcon from "@mui/icons-material/Search";
+import Icon from "../../icon/user.svg";
+import useFirebaseAuth from "../../auth/useFirebaseAuth";
 
 const AddFriend = () => {
-  const customAlert = useAlert();
   const [searchWord, setSearchWord] = useState();
   const [findedUsers, setFindedUsers] = useState([]);
-  const { currentUser } = useFirebaseAuth();
-  const userId = currentUser.multiFactor.user.uid;
+  const customAlert = useAlert();
+  const { userId } = useFirebaseAuth();
 
   const searchFriend = () => {
     axios({
@@ -39,7 +38,6 @@ const AddFriend = () => {
         <p>フレンド検索：</p>
         <InputSearchWord
           type="text"
-          name="searchWord"
           placeholder="idまたはユーザ名を入力してください"
           onChange={(event) => setSearchWord(event.target.value)}
         />
@@ -70,60 +68,60 @@ const AddFriend = () => {
 const Wrapper = styled.div`
   height: 500px;
 `;
-const InputSearchWord = styled.input`
-  width: 300px;
-  height: 30px;
-  margin: auto 0 auto 0;
-  border: 2px solid black;
-  color: black;
-  padding: 3px 10px;
-  border-radius: 20px;
-`;
 const InputArea = styled.div`
   display: flex;
   margin-left: 100px;
   margin-bottom: 50px;
 `;
+const InputSearchWord = styled.input`
+  height: 30px;
+  width: 300px;
+  margin: auto 0 auto 0;
+  padding: 3px 10px;
+  border: 2px solid black;
+  border-radius: 20px;
+  color: black;
+`;
+
 const SearchButton = styled.button`
-  height: 35px;
-  margin: auto 0 auto -20px;
-  cursor: pointer;
-  border: none;
-  background: #000000;
-  color: #fff;
   width: 3.5em;
   height: 3em;
+  margin: auto 0 auto -20px;
+  border: none;
+  color: #fff;
+  background: #000000;
   outline: none;
+  cursor: pointer;
+`;
+const Content = styled.div`
+  margin-left: 100px;
 `;
 const ListItem = styled.div`
   display: flex;
-  border: solid #efeaea;
-  margin: 10px;
-  border-radius: 1em;
+  align-items: center;
   height: 80px;
   width: 500px;
-  align-items: center;
+  margin: 10px;
+  border: solid #efeaea;
+  border-radius: 1em;
 `;
+const ListItemLeft = styled.div``;
 const UserIcon = styled.img`
   height: 90px;
   width: 90px;
   border-radius: 50%;
 `;
-const ListItemLeft = styled.div``;
 const ListItemCenter = styled.div``;
 const ListItemRight = styled.div`
   margin-right: 10px;
   margin-left: auto;
 `;
-const Content = styled.div`
-  margin-left: 100px;
-`;
 const AddFrinedButton = styled.button`
-  width: 30px;
   height: 30px;
+  width: 30px;
   border-radius: 6px;
-  font-size: 25px;
   background-color: white;
+  font-size: 25px;
   :hover {
     background-color: #e6dfdf;
   }

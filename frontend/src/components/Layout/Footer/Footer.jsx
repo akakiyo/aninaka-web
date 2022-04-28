@@ -9,13 +9,13 @@ const Footer = () => {
 
 const Wrapper = styled.div`
   bottom: 0;
-  width: 100%;
   height: 100px;
+  width: 100%;
   background-color: black;
 `;
 const Right = styled.p`
-  text-align: center;
   color: white;
+  text-align: center;
 `;
 
 export default Footer;

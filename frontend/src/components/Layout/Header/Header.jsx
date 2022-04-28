@@ -1,8 +1,8 @@
-import Icon from "./user.svg";
-import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
-import useFirebaseAuth from "../../auth/useFirebaseAuth";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Icon from "../../../icon/user.svg";
+import useFirebaseAuth from "../../../auth/useFirebaseAuth";
 
 const Header = () => {
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -31,10 +31,10 @@ const Header = () => {
       <RightArea>
         <PageTitleArea>
           <Link to="/" style={{ textDecoration: "none" }}>
-            <PageTitle>Home</PageTitle>
+            <p>Home</p>
           </Link>
           <Link to="/friend-lsit" style={{ textDecoration: "none" }}>
-            <PageTitle>フレンド</PageTitle>
+            <p>フレンド</p>
           </Link>
         </PageTitleArea>
 
@@ -51,57 +51,53 @@ const Header = () => {
 };
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 80px;
   display: flex;
-  background-color: #ff7f50;
   justify-content: space-between;
+  height: 80px;
+  width: 100%;
+  background-color: #ff7f50;
 `;
 const Logo = styled.span`
-  /* text-align: center; */
   color: white;
   font-size: 50px;
 `;
 const RightArea = styled.div`
-  margin-right: 20px;
   display: flex;
+  margin-right: 20px;
+`;
+const PageTitleArea = styled.span`
+  display: flex;
+  p {
+    margin-right: 20px;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    :hover {
+      color: #dad5d5;
+    }
+  }
 `;
 const UserIcon = styled.img`
   height: 100%;
-  background-color: #ff7f50;
   border-radius: 50%;
+  background-color: #ff7f50;
 `;
-
 const Menu = styled.ul`
-  width: 150px;
   position: absolute;
   top: 60px;
   right: 10px;
   list-style: none;
-  background-color: white;
+  width: 150px;
   padding-left: 0;
   padding: auto;
   box-shadow: 0 2px 2px 2px rgb(0 0 0 / 10%);
+  background-color: white;
 `;
 const MenuItem = styled.li`
   width: 100%;
   text-align: center;
-
   :hover {
     background-color: #dad5d5;
-  }
-`;
-
-const PageTitleArea = styled.span`
-  display: flex;
-`;
-const PageTitle = styled.p`
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-  margin-right: 20px;
-  :hover {
-    color: #dad5d5;
   }
 `;
 export default Header;

@@ -3,29 +3,33 @@ import { firebaseAuth } from "../firebase";
 
 const useFirebaseAuth = () => {
   const [currentUser, setCurrentUser] = useState(firebaseAuth.currentUser);
+  const [userId, setUserId] = useState(
+    firebaseAuth?.currentUser?.multiFactor?.user?.uid
+  );
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let unmounted = false;
+    let isMounted = true;
     firebaseAuth.onAuthStateChanged((user) => {
-      if (user) {
-        user.getIdTokenResult(true).then((result) => {
-          if (!unmounted) {
+      if (isMounted) {
+        if (user) {
+          user.getIdTokenResult(true).then((result) => {
             setIsAuthenticated(true);
             setCurrentUser(user);
             setIsLoading(false);
-          }
-        });
-      } else if (!unmounted) {
-        setIsAuthenticated(false);
-        setCurrentUser("");
-        setIsLoading(false);
+          });
+        } else {
+          setIsAuthenticated(false);
+          setCurrentUser("");
+          setIsLoading(false);
+        }
       }
     });
 
     return () => {
-      unmounted = true;
+      isMounted = false;
     };
   }, []);
 
@@ -58,6 +62,7 @@ const useFirebaseAuth = () => {
     login,
     logout,
     currentUser,
+    userId,
     isAuthenticated,
     isLoading,
   };

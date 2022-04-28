@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import ReactStars from "react-stars";
 import useFirebaseAuth from "../../../auth/useFirebaseAuth";
-const AddFriendModal = (props) => {
+const AddAnimeModal = (props) => {
   const { close, getNewAnimeData } = props;
   const { currentUser } = useFirebaseAuth();
   const userId = currentUser.multiFactor.user.uid;
@@ -214,4 +214,4 @@ const StyledButton = styled.button`
     background: #f64505;
   }
 `;
-export default AddFriendModal;
+export default AddAnimeModal;

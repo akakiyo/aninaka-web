@@ -5,7 +5,6 @@ import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Home from "./routes/Home";
 import FriendList from "./routes/FriendList";
-import AddAnime from "./routes/AddAnime";
 import AddFriend from "./routes/AddFriend";
 
 const App = () => {
@@ -26,10 +25,6 @@ const App = () => {
             element={
               isAuthenticated ? <FriendList /> : <Navigate to="/login" />
             }
-          />
-          <Route
-            path="/add-anime"
-            element={isAuthenticated ? <AddAnime /> : <Navigate to="/login" />}
           />
           <Route
             path="/add-friend"
