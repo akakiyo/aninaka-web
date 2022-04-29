@@ -3,6 +3,6 @@ module.exports = {
   USER: "postgres",
   PASSWORD: "root",
   DB: "postgres",
-  dialect: "postgres", //データベースの種類
+  dialect: "postgres",
   port: 30008,
 };

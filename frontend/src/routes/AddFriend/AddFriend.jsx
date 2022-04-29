@@ -32,6 +32,7 @@ const AddFriend = () => {
     });
   };
 
+  console.log(findedUsers);
   return (
     <Wrapper>
       <InputArea>
@@ -46,7 +47,7 @@ const AddFriend = () => {
         </SearchButton>
       </InputArea>
       <Content>
-        <div>ヒット件数：{findedUsers.length}</div>
+        {/* <div>ヒット件数：{findedUsers.length}</div> */}
         {findedUsers &&
           findedUsers.map((findedUser) => (
             <ListItem>

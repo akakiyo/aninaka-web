@@ -41,7 +41,7 @@ const personal_anime_infos = sequelize.define("personal_anime_infos", {
   rating: {
     type: DataTypes.DECIMAL,
   },
-  viewingApp: {
+  viewing_app: {
     type: DataTypes.TEXT,
   },
   date: {

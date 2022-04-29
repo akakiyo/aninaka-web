@@ -9,13 +9,13 @@ import AddFriend from "./routes/AddFriend";
 
 const App = () => {
   const { isAuthenticated, isLoading } = useFirebaseAuth();
-
   if (isLoading) return <p>loading...</p>;
-
   return (
     <>
       <Layout>
         <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
           <Route
             path="/"
             element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
@@ -30,8 +30,6 @@ const App = () => {
             path="/add-friend"
             element={isAuthenticated ? <AddFriend /> : <Navigate to="/login" />}
           />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/signup" element={<SignUp />} />
         </Routes>
       </Layout>
     </>

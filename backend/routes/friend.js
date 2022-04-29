@@ -1,8 +1,7 @@
 const express = require("express");
 const sequelize = require("../sequelize");
-
-const router = express.Router();
 const { friend_infos } = require("../models/models.js");
+const router = express.Router();
 
 router.post("/", async (req, res, next) => {
   try {
@@ -28,10 +27,14 @@ router.post("/", async (req, res, next) => {
 });
 router.get("/", async (req, res, next) => {
   try {
+    //追加したいフレンドの検索
     const { searchWord } = req.query;
     const findedUsers = (
       await sequelize.query(
-        `SELECT user_id,name FROM user_infos WHERE user_id = '${searchWord}' OR name ='${searchWord}'`
+        `SELECT user_id,name FROM user_infos WHERE user_id = (?) OR name =(?)`,
+        {
+          replacements: [searchWord, searchWord],
+        }
       )
     )[0];
     res.json({ findedUsers });
@@ -42,6 +45,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/friend-list", async (req, res, next) => {
   try {
+    //フレンドが見ているアニメを返す
     const { userId } = req.query;
     const friendIds = [];
     (

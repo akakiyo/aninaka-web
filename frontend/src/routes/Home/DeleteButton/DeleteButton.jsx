@@ -2,7 +2,8 @@ import styled from "styled-components";
 import axios from "axios";
 import deleteIcon from "./delete.svg";
 
-const DeleteButton = ({ id, getNewAnimeData }) => {
+const DeleteButton = (props) => {
+  const { id, getNewAnimeData } = props;
   const deleteAnime = async (id) => {
     await axios({
       method: "DELETE",

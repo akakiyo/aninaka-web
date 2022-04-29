@@ -5,14 +5,12 @@ import ReactStars from "react-stars";
 import useFirebaseAuth from "../../../auth/useFirebaseAuth";
 const AddAnimeModal = (props) => {
   const { close, getNewAnimeData } = props;
-  const { currentUser } = useFirebaseAuth();
-  const userId = currentUser.multiFactor.user.uid;
+  const { userId } = useFirebaseAuth();
   const [title, setTitle] = useState();
   const [storyNum, setStoryNum] = useState();
   const [subTitle, setSubTitle] = useState();
   const [starRating, setStarRating] = useState();
   const [viewingApp, setViewingApp] = useState();
-
   const handleSubmit = async () => {
     const data = {
       userId,
@@ -22,7 +20,7 @@ const AddAnimeModal = (props) => {
       starRating,
       viewingApp,
     };
-
+    console.log(data);
     await axios({
       method: "POST",
       url: `http://localhost:8080/personal/add-anime`,
@@ -31,6 +29,7 @@ const AddAnimeModal = (props) => {
     await getNewAnimeData();
     close();
   };
+
   const handleReset = () => {
     setTitle("");
     setStoryNum("");
@@ -38,39 +37,39 @@ const AddAnimeModal = (props) => {
     setStarRating("");
     setViewingApp("");
   };
+
   return (
     <Wrapper>
-      <TopContent>
+      <Header>
         <ProcessingContent>視聴アニメの追加</ProcessingContent>
         <CloseButton onClick={close}>x</CloseButton>
-      </TopContent>
-
-      <TitleArea>
-        <Text>タイトル</Text>
+      </Header>
+      <InputElement>
+        <p>タイトル</p>
         <InputText
           type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
-      </TitleArea>
-      <StoryNumArea>
-        <Text>話数：</Text>
+      </InputElement>
+      <InputElement>
+        <p>話数：</p>
         <InputNum
-          type="text"
+          type="number"
           value={storyNum}
           onChange={(event) => setStoryNum(event.target.value)}
         />
-      </StoryNumArea>
-      <SubTitleArea>
-        <Text>サブタイトル：</Text>
+      </InputElement>
+      <InputElement>
+        <p>サブタイトル：</p>
         <InputText
           type="text"
           value={subTitle}
           onChange={(event) => setSubTitle(event.target.value)}
         />
-      </SubTitleArea>
-      <ViewingAppArea>
-        <Text>視聴アプリ：</Text>
+      </InputElement>
+      <InputElement>
+        <p>視聴アプリ：</p>
         <ViewingAppSelect
           value={viewingApp}
           onChange={(evet) => setViewingApp(evet.target.value)}
@@ -90,9 +89,9 @@ const AddAnimeModal = (props) => {
           <option value="バンダイチャンネル">バンダイチャンネル</option>
           <option value="その他">その他</option>
         </ViewingAppSelect>
-      </ViewingAppArea>
+      </InputElement>
       <StarRatingArea>
-        <Text>評価：</Text>
+        <p>評価：</p>
         <StyledStars
           value={starRating}
           count={5}
@@ -122,93 +121,87 @@ const AddAnimeModal = (props) => {
 };
 
 const Wrapper = styled.div`
-  width: 500px;
   height: 500px;
-  background-color: white;
-  overflow: scroll;
-  ::-webkit-scrollbar {
-    /* Chrome, Safari 対応 */
-    display: none;
-  }
+  width: 500px;
   padding: 10px;
   border-radius: 10px;
+  background-color: white;
 `;
-
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
 const ProcessingContent = styled.p`
   margin: auto -20px auto auto;
   font-weight: bold;
   font-size: 30px;
 `;
 const CloseButton = styled.button`
-  width: 40px;
   height: 40px;
-  margin-right: 10px;
-  margin-left: auto;
+  width: 40px;
+  margin: 0 10px 0 auto;
   border-radius: 50%;
-  font-size: 20px;
-  /* border: none; */
   background-color: white;
+  font-size: 20px;
+`;
+const InputElement = styled.div`
+  display: flex;
+  p {
+    width: 150px;
+    margin-left: 30px;
+    font-size: 20px;
+  }
 `;
 
-const TitleArea = styled.div`
-  display: flex;
+const InputText = styled.input`
+  height: 30px;
+  width: 300px;
+  margin: auto auto auto 0;
+  font-size: 20px;
 `;
-const StoryNumArea = styled.div`
-  display: flex;
+const InputNum = styled.input`
+  height: 30px;
+  width: 50px;
+  margin: auto auto auto 0;
+  font-size: 20px;
 `;
-const SubTitleArea = styled.div`
-  display: flex;
-`;
-const ViewingAppArea = styled.div`
-  display: flex;
+const ViewingAppSelect = styled.select`
+  height: 30px;
+  width: 200px;
+  margin: auto auto auto 0;
 `;
 const StarRatingArea = styled.div`
   display: flex;
   margin: auto;
-`;
-const InputText = styled.input`
-  width: 300px;
-  height: 30px;
-  font-size: 20px;
-  margin: auto auto auto 0;
-`;
-const InputNum = styled.input`
-  width: 50px;
-  height: 30px;
-  font-size: 20px;
-  margin: auto auto auto 0;
-`;
-const Text = styled.p`
-  font-size: 20px;
-  width: 150px;
-  margin-left: 30px;
-`;
-const ViewingAppSelect = styled.select`
-  width: 200px;
-  height: 30px;
-  margin: auto auto auto 0;
-`;
-const TopContent = styled.div`
-  display: flex;
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  p {
+    width: 150px;
+    margin-left: 30px;
+    font-size: 20px;
+  }
 `;
 const StyledStars = styled(ReactStars)`
   margin: auto auto auto 0;
+  p {
+    width: 150px;
+    margin-left: 30px;
+    font-size: 20px;
+  }
 `;
 const ButtonsArea = styled.div`
   display: flex;
-  padding: 10px 100px 0 100px;
   justify-content: space-between;
+  padding: 10px 100px 0 100px;
 `;
 const StyledButton = styled.button`
+  height: 50px;
+  width: 100px;
+  border: none;
+  border-radius: 100vh;
   color: #fff;
   background-color: #ff7f50;
-  border-radius: 100vh;
-  width: 100px;
-  height: 50px;
-  border: none;
+
   :hover {
     color: #fff;
     background: #f64505;
