@@ -41,7 +41,7 @@ const FriendList = () => {
               <ListContent>
                 <UpperRowContent>
                   <Title>{viewingAnime.title}</Title>
-                  <ViewingApp>at {viewingAnime.viewingApp}</ViewingApp>
+                  <ViewingApp>at {viewingAnime.viewing_app}</ViewingApp>
                   <p>
                     {moment(viewingAnime.date).format("YYYY年M月D日H時mm分")}
                   </p>

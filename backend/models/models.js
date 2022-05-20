@@ -26,6 +26,10 @@ const personal_anime_infos = sequelize.define("personal_anime_infos", {
   user_id: {
     type: DataTypes.TEXT,
     primaryKey: true,
+    // references: {
+    //   model: user_infos,
+    //   key: "user_id",
+    // },
   },
   title: {
     type: DataTypes.TEXT,
@@ -59,10 +63,18 @@ const friend_infos = sequelize.define("friend_infos", {
   user_id: {
     type: DataTypes.TEXT,
     allowNull: false,
+    // references: {
+    //   model: user_infos,
+    //   key: "user_id",
+    // },
   },
   friend_id: {
     type: DataTypes.TEXT,
     allowNull: false,
+    // references: {
+    //   model: user_infos,
+    //   key: "user_id",
+    // },
   },
   date: {
     type: DataTypes.DATE,

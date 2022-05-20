@@ -53,7 +53,7 @@ const Home = () => {
             <ListContent>
               <UpperRowContent>
                 <AnimeTitle>{anime.title}</AnimeTitle>
-                <ViewingApp>at {anime.viewingApp}</ViewingApp>
+                <ViewingApp>at {anime.viewing_app}</ViewingApp>
                 <ViewingDate>
                   {moment(anime.date).format("YYYY年M月D日H時mm分")}
                 </ViewingDate>

@@ -8,6 +8,7 @@ const Footer = () => {
 };
 
 const Wrapper = styled.div`
+  position: absolute;
   bottom: 0;
   height: 100px;
   width: 100%;
