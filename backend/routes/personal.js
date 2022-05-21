@@ -30,7 +30,7 @@ router.get("/", async (req, res, next) => {
 });
 router.post("/", async (req, res, next) => {
   try {
-    sequelize.sync();
+    await sequelize.sync();
     //ユーザの新規登録の処理
     await sequelize.transaction(async (trn) => {
       const { user_id, name, mail_address } = req.body;
@@ -69,11 +69,10 @@ router.post("/add-anime", async (req, res, next) => {
   //視聴アニメの追加
   try {
     sequelize.transaction(async (trn) => {
-      sequelize.sync();
       const { userId, title, storyNum, subTitle, starRating, viewingApp } =
         req.body;
       await sequelize.query(
-        `INSERT INTO personal_anime_infos (user_id,title,sub_title,story_number,rating,"viewingApp",date) VALUES ((?),(?),(?),(?),(?),(?),'${new Date()}')`,
+        `INSERT INTO personal_anime_infos (user_id,title,sub_title,story_number,rating,viewing_app,date) VALUES ((?),(?),(?),(?),(?),(?),(?))`,
         {
           replacements: [
             userId,
@@ -82,6 +81,7 @@ router.post("/add-anime", async (req, res, next) => {
             storyNum,
             starRating,
             viewingApp,
+            new Date(),
           ],
           transaction: trn,
         }

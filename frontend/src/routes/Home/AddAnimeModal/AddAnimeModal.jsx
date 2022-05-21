@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import ReactStars from "react-stars";
@@ -11,6 +11,7 @@ const AddAnimeModal = (props) => {
   const [subTitle, setSubTitle] = useState();
   const [starRating, setStarRating] = useState();
   const [viewingApp, setViewingApp] = useState();
+  const [candidateSubTitles, setCandiateSubTitles] = useState();
   const handleSubmit = async () => {
     const data = {
       userId,
@@ -20,12 +21,6 @@ const AddAnimeModal = (props) => {
       starRating,
       viewingApp,
     };
-    console.log("実行");
-    console.log(
-      `${
-        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
-      }personal/add-anime`
-    );
     await axios({
       method: "POST",
       url: `${
@@ -44,6 +39,22 @@ const AddAnimeModal = (props) => {
     setStarRating("");
     setViewingApp("");
   };
+  const searchCandidateSubTitle = async () => {
+    await axios({
+      method: "GET",
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }anime`,
+      params: { title, storyNum },
+    }).then((res) => {
+      setCandiateSubTitles(res.data.applicableSubTitles);
+    });
+  };
+  useEffect(() => {
+    if (title && storyNum) {
+      searchCandidateSubTitle();
+    }
+  }, [title, storyNum]);
 
   return (
     <Wrapper>
@@ -73,7 +84,15 @@ const AddAnimeModal = (props) => {
           type="text"
           value={subTitle}
           onChange={(event) => setSubTitle(event.target.value)}
+          list="sub-title"
         />
+        {candidateSubTitles && (
+          <datalist id="sub-title">
+            {candidateSubTitles.map((candidateSubTitle) => (
+              <option key={candidateSubTitle} value={candidateSubTitle} />
+            ))}
+          </datalist>
+        )}
       </InputElement>
       <InputElement>
         <p>視聴アプリ：</p>

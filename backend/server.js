@@ -3,17 +3,13 @@ const app = express();
 const cors = require("cors");
 
 const newLocal = {
-  origin: "http://localhost:3000",
+  origin: "https://aninaka-fcd16.web.app/",
 };
 const corsOptions = newLocal;
 
-// app.use(cors(corsOptions));
 app.use(cors());
-// // parse requests of content-type - application/json
 app.use(express.json());
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/", require("./routes"));
 
 const errorHandler = (err, req, res, next) => {

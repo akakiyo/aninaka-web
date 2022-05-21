@@ -26,10 +26,10 @@ const personal_anime_infos = sequelize.define("personal_anime_infos", {
   user_id: {
     type: DataTypes.TEXT,
     primaryKey: true,
-    references: {
-      model: user_infos,
-      key: "user_id",
-    },
+    // references: {
+    //   model: user_infos,
+    //   key: "user_id",
+    // },
   },
   title: {
     type: DataTypes.TEXT,
