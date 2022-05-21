@@ -29,19 +29,8 @@ const Home = () => {
       setAnimeList(res.data.animeList);
     });
   };
-  const getTest = async () => {
-    console.log("test");
-    console.log(`${process.env.REACT_APP_BACKEND_API}/test`);
-    await axios({
-      method: "GET",
-      url: `${process.env.REACT_APP_BACKEND_API}test`,
-    }).then((res) => {
-      console.log(res);
-    });
-  };
   useEffect(() => {
     getNewAnimeData();
-    getTest();
   }, []);
 
   return (

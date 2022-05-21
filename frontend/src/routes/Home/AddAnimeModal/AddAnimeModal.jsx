@@ -20,7 +20,12 @@ const AddAnimeModal = (props) => {
       starRating,
       viewingApp,
     };
-    console.log(data);
+    console.log("実行");
+    console.log(
+      `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }personal/add-anime`
+    );
     await axios({
       method: "POST",
       url: `${
