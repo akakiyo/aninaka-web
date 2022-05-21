@@ -14,11 +14,17 @@ const SignUp = () => {
   const signupProcess = async (userName, email, password) => {
     try {
       const user_id = await signup(email, password);
-      await axios.post(`http://localhost:8080/personal`, {
-        user_id,
-        name: userName,
-        mail_address: email,
-      });
+
+      await axios.post(
+        `${
+          process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+        }personal/`,
+        {
+          user_id,
+          name: userName,
+          mail_address: email,
+        }
+      );
     } catch {
       alert("アカウント作成に失敗しました");
     }

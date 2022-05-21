@@ -2,11 +2,13 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const corsOptions = {
+const newLocal = {
   origin: "http://localhost:3000",
 };
+const corsOptions = newLocal;
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 // // parse requests of content-type - application/json
 app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -23,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is runnning on port ${PORT}.`);
 });

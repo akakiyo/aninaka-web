@@ -15,7 +15,9 @@ const AddFriend = () => {
   const searchFriend = () => {
     axios({
       method: "GET",
-      url: `http://localhost:8080/friend`,
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }friend`,
       params: { searchWord },
     }).then((res) => {
       setFindedUsers(res.data.findedUsers);
@@ -25,7 +27,9 @@ const AddFriend = () => {
   const addFriend = (addFriendId) => {
     axios({
       method: "POST",
-      url: `http://localhost:8080/friend`,
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }friend`,
       data: { addFriendId, userId },
     }).then(() => {
       customAlert.success("");

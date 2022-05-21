@@ -1,9 +1,16 @@
 {
+  "name": "aninaka-backend",
+  "main": "server.js",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "middleware": "^1.0.0",
     "pg": "^8.7.3",
+    "pg-connection-string": "^2.5.0",
     "sequelize": "^6.19.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

@@ -15,7 +15,9 @@ const FriendList = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:8080/friend/friend-list`,
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }friend/friend-list`,
       params: { userId },
     }).then((res) => {
       setViewingList(res.data);

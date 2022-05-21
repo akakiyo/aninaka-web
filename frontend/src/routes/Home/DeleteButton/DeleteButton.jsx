@@ -7,7 +7,9 @@ const DeleteButton = (props) => {
   const deleteAnime = async (id) => {
     await axios({
       method: "DELETE",
-      url: `http://localhost:8080/personal`,
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }personal`,
       params: { id },
     });
     await getNewAnimeData();

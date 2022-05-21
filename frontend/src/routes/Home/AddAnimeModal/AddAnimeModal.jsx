@@ -23,7 +23,9 @@ const AddAnimeModal = (props) => {
     console.log(data);
     await axios({
       method: "POST",
-      url: `http://localhost:8080/personal/add-anime`,
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }personal/add-anime`,
       data,
     });
     await getNewAnimeData();

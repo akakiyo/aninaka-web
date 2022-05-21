@@ -20,16 +20,28 @@ const Home = () => {
   const getNewAnimeData = async () => {
     await axios({
       method: "GET",
-      url: `http://localhost:8080/personal`,
+      url: `${
+        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
+      }personal`,
       params: { userId: userId },
     }).then((res) => {
       setUserName(res.data.userName);
       setAnimeList(res.data.animeList);
     });
   };
-
+  const getTest = async () => {
+    console.log("test");
+    console.log(`${process.env.REACT_APP_BACKEND_API}/test`);
+    await axios({
+      method: "GET",
+      url: `${process.env.REACT_APP_BACKEND_API}test`,
+    }).then((res) => {
+      console.log(res);
+    });
+  };
   useEffect(() => {
     getNewAnimeData();
+    getTest();
   }, []);
 
   return (
