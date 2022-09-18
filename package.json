@@ -13,7 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "firebase": "^9.6.11",
-    "firebase-tools": "^10.6.0",
+    "firebase-tools": "^11.9.0",
     "global": "^4.4.0",
     "moment": "^2.29.3",
     "react": "^18.0.0",
