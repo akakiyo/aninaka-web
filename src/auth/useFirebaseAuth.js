@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { firebaseAuth } from "../firebase";
 
-const useFirebaseAuth = () => {
+const useAuthUser = () => {
   const [currentUser, setCurrentUser] = useState(firebaseAuth.currentUser);
   const [userId, setUserId] = useState(
     firebaseAuth?.currentUser?.multiFactor?.user?.uid
@@ -68,4 +68,4 @@ const useFirebaseAuth = () => {
   };
 };
 
-export default useFirebaseAuth;
+export default useAuthUser;
