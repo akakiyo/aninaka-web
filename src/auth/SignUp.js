@@ -10,14 +10,6 @@ const SignUp = () => {
   const [userName, setUserName] = useState("");
   const { signup, isAuthenticated } = useAuthUser();
 
-  // const signUp = async (userName, email, password) => {
-  //   try {
-  //     const user_id = await signup(email, password);
-  //   } catch {
-  //     alert("アカウント作成に失敗しました");
-  //   }
-  // };
-
   if (isAuthenticated) {
     return <Navigate to="/" />;
   }
