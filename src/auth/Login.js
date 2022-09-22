@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import useFirebaseAuth from "./useFirebaseAuth";
+import useAuthUser from "./useAuthUser";
 import { TransitionOtherButton, DoneButton } from "./Buttons";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isAuthenticated } = useFirebaseAuth();
-  const isInvalid = password === "" || email === "";
+  const isInvalid = password === "" || emailAddress === "";
+  const { login, isAuthenticated } = useAuthUser();
 
   if (isAuthenticated) {
     return <Navigate to="/" />;
@@ -20,9 +20,9 @@ const Login = () => {
       <Email>
         Email：
         <input
-          value={email}
+          value={emailAddress}
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmailAddress(e.target.value)}
         />
       </Email>
       <Password>
@@ -34,9 +34,8 @@ const Login = () => {
         />
       </Password>
       <DoneButton
+        onClick={() => login(emailAddress, password)}
         disabled={isInvalid}
-        type="submit"
-        onClick={() => login(email, password)}
       >
         ログイン
       </DoneButton>

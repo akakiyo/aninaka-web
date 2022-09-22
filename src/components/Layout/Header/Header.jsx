@@ -2,11 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Icon from "../../../icon/user.svg";
-import useFirebaseAuth from "../../../auth/useFirebaseAuth";
+import useAuthUser from "../../../auth/useAuthUser";
 
 const Header = () => {
   const [isShowMenu, setIsShowMenu] = useState(false);
-  const { logout } = useFirebaseAuth();
+  const { logout } = useAuthUser();
   const ref = useRef(null);
   useEffect(() => {
     const handler = (event) => {
@@ -42,7 +42,7 @@ const Header = () => {
         {isShowMenu && (
           <Menu ref={ref}>
             <MenuItem>ユーザ情報変更</MenuItem>
-            <MenuItem onClick={() => logout()}>サインアウト</MenuItem>
+            <MenuItem onClick={() => logout()}>ログアウト</MenuItem>
           </Menu>
         )}
       </RightArea>

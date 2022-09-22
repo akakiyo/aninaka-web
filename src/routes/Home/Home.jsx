@@ -6,32 +6,16 @@ import ReactStars from "react-stars";
 import moment from "moment";
 import Icon from "../../icon/user.svg";
 import DeleteButton from "./DeleteButton";
-import useFirebaseAuth from "../../auth/useFirebaseAuth";
+import useAuthUser from "../../auth/useAuthUser";
 import AddAnimeModal from "./AddAnimeModal";
 
 const Home = () => {
   const [animeList, setAnimeList] = useState([]);
   const [userName, setUserName] = useState();
-  const { userId } = useFirebaseAuth();
+  const { userId } = useAuthUser();
   const [Modal, open, close] = useModal("root", {
     preventScroll: false,
   });
-
-  const getNewAnimeData = async () => {
-    await axios({
-      method: "GET",
-      url: `${
-        process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
-      }personal`,
-      params: { userId: userId },
-    }).then((res) => {
-      setUserName(res.data.userName);
-      setAnimeList(res.data.animeList);
-    });
-  };
-  useEffect(() => {
-    getNewAnimeData();
-  }, []);
 
   return (
     <>
@@ -42,41 +26,6 @@ const Home = () => {
           <div>ID: {userId}</div>
         </AccountInfo>
       </Left>
-      <Right>
-        <TopItem>
-          <p>過去の視聴履歴</p>
-          <TransitionAddAnime onClick={open}>
-            視聴アニメの追加
-          </TransitionAddAnime>
-        </TopItem>
-        <List>
-          {animeList.map((anime) => (
-            <ListContent>
-              <UpperRowContent>
-                <AnimeTitle>{anime.title}</AnimeTitle>
-                <ViewingApp>at {anime.viewing_app}</ViewingApp>
-                <ViewingDate>
-                  {moment(anime.date).format("YYYY年M月D日H時mm分")}
-                </ViewingDate>
-              </UpperRowContent>
-
-              <LowerRowContent>
-                <StoryNum>第{anime.story_number}話</StoryNum>
-                <Title>{anime.sub_title}</Title>
-                <ReactStars
-                  size={24}
-                  edit={false}
-                  value={anime.rating}
-                ></ReactStars>
-                <DeleteButton id={anime.id} getNewAnimeData={getNewAnimeData} />
-              </LowerRowContent>
-            </ListContent>
-          ))}
-        </List>
-        <Modal>
-          <AddAnimeModal close={close} getNewAnimeData={getNewAnimeData} />
-        </Modal>
-      </Right>
     </>
   );
 };

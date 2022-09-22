@@ -1,34 +1,22 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import useFirebaseAuth from "./useFirebaseAuth";
-import axios from "axios";
+import useAuthUser from "./useAuthUser";
 import { TransitionOtherButton, DoneButton } from "./Buttons";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
+  const [email_address, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const { signup, isAuthenticated } = useFirebaseAuth();
+  const { signup, isAuthenticated } = useAuthUser();
 
-  const signupProcess = async (userName, email, password) => {
-    try {
-      const user_id = await signup(email, password);
-
-      await axios.post(
-        `${
-          process.env.REACT_APP_BACKEND_API || "http://localhost:8080/"
-        }personal/`,
-        {
-          user_id,
-          name: userName,
-          mail_address: email,
-        }
-      );
-    } catch {
-      alert("アカウント作成に失敗しました");
-    }
-  };
+  // const signUp = async (userName, email, password) => {
+  //   try {
+  //     const user_id = await signup(email, password);
+  //   } catch {
+  //     alert("アカウント作成に失敗しました");
+  //   }
+  // };
 
   if (isAuthenticated) {
     return <Navigate to="/" />;
@@ -47,9 +35,9 @@ const SignUp = () => {
       <Email>
         Email：
         <input
-          value={email}
+          value={email_address}
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmailAddress(e.target.value)}
         />
       </Email>
       <Password>
@@ -60,7 +48,7 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Password>
-      <DoneButton onClick={() => signupProcess(userName, email, password)}>
+      <DoneButton onClick={() => signup(userName, email_address, password)}>
         アカウント作成
       </DoneButton>
       <HorizontalLine />

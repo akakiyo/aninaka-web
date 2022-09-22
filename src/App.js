@@ -1,15 +1,15 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
-import useFirebaseAuth from "./auth/useFirebaseAuth";
+import useAuthUser from "./auth/useAuthUser";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Home from "./routes/Home";
-import FriendList from "./routes/FriendList";
-import AddFriend from "./routes/AddFriend";
+// import FriendList from "./routes/FriendList";
+// import AddFriend from "./routes/AddFriend";
 
 const App = () => {
-  const { isAuthenticated, isLoading } = useFirebaseAuth();
-  if (isLoading) return <p>loading...</p>;
+  const { isAuthenticated } = useAuthUser();
+  console.log(isAuthenticated);
   return (
     <>
       <Layout>
@@ -19,16 +19,6 @@ const App = () => {
           <Route
             path="/"
             element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/friend-lsit"
-            element={
-              isAuthenticated ? <FriendList /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="/add-friend"
-            element={isAuthenticated ? <AddFriend /> : <Navigate to="/login" />}
           />
         </Routes>
       </Layout>
