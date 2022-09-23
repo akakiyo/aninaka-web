@@ -61,14 +61,9 @@ const Type = styled.span`
   font-size: 20px;
   margin-left: 5%;
 `;
-const Message = styled.div`
-  margin-top: 10%;
-  font-size: 15px;
-`;
 const ButtonArea = styled.div`
   position: relative;
   text-align: right;
-}
 `;
 const OKButton = styled.button`
   background-color: white;
