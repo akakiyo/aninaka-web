@@ -11,7 +11,7 @@ const useAuthUser = () => {
     let isMounted = true;
     if (isMounted) {
       axios
-        .get("http://user-auth.aninaka-api.net/verify", {
+        .get("https://user-auth.aninaka-api.net/verify", {
           headers: {
             Authorization: cookies["token"],
           },
@@ -37,7 +37,7 @@ const useAuthUser = () => {
   const signup = useCallback(async (userName, emailAddress, password) => {
     axios({
       method: "POST",
-      url: `http://user-auth.aninaka-api.net/signup`,
+      url: `https://user-auth.aninaka-api.net/signup`,
       data: { userName, emailAddress, password },
     }).then((res) => {
       setUserName(res.data.userName);
@@ -49,7 +49,7 @@ const useAuthUser = () => {
     async (emailAddress, password) => {
       axios({
         method: "GET",
-        url: `http://user-auth.aninaka-api.net/login/`,
+        url: `https://user-auth.aninaka-api.net/login/`,
         params: { emailAddress, password },
       }).then((res) => {
         if (res.data?.user_name) {
@@ -63,7 +63,7 @@ const useAuthUser = () => {
   const logout = useCallback(async () => {
     axios({
       method: "GET",
-      url: `http://user-auth.aninaka-api.net/logout`,
+      url: `https://user-auth.aninaka-api.net/logout`,
     }).then(() => {
       cleanUpAuthentication();
     });
