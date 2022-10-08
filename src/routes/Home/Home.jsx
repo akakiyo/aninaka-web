@@ -1,42 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import Icon from "../../icon/user.svg";
+import axios from "axios";
 import useAuthUser from "../../auth/useAuthUser";
+import Card from "./Card/Card";
 
 const Home = () => {
-  const [userName] = useState();
-  const { userId } = useAuthUser();
+  const [thisSeasonAnimes, setThisSeasonAnimes] = useState(null);
 
+  useEffect(() => {
+    getThisSeasonAnimes();
+  }, []);
+
+  const getThisSeasonAnimes = () => {
+    axios
+      .get("http://localhost:8082/anime/this-season-anime", {})
+      .then((res) => {
+        setThisSeasonAnimes(res.data.works);
+      });
+  };
   return (
-    <>
-      <Left>
-        <UserIcon src={Icon} />
-        <AccountInfo>
-          <div>ユーザー名： {userName}</div>
-          <div>ID: {userId}</div>
-        </AccountInfo>
-      </Left>
-    </>
+    <Wrapper>
+      <div>
+        {thisSeasonAnimes &&
+          thisSeasonAnimes.map((thisSeasonAnime) => (
+            <Item>
+              <Card
+                title={thisSeasonAnime.title}
+                image={thisSeasonAnime.images.recommended_url}
+                officialPageUrl={thisSeasonAnime.official_site_url}
+              />
+            </Item>
+          ))}
+      </div>
+    </Wrapper>
   );
 };
-
-const Left = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  width: 700px;
-  border-style: solid;
-  margin: 0 auto 30px auto;
-  border-color: gray;
-  border-radius: 6px;
-  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
 `;
-const UserIcon = styled.img`
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-`;
-const AccountInfo = styled.div`
-  margin: auto auto auto 20px;
-  text-align: left;
+const Item = styled.div`
+  color: black;
+  margin: 20px 5px;
+  float: left;
+  width: calc(50% - 10px);
+  height: 100%;
 `;
 
 export default Home;

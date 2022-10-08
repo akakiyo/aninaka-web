@@ -8,14 +8,13 @@ const Footer = () => {
 };
 
 const Wrapper = styled.div`
-  position: absolute;
-  bottom: 0;
   height: 100px;
   width: 100%;
   background-color: black;
 `;
 const Right = styled.p`
   color: white;
+  margin: 0;
   text-align: center;
 `;
 
