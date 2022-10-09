@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import useAuthUser from "../../auth/useAuthUser";
 import Card from "./Card/Card";
+import Pagination from "./Pagination/Pagination";
 
 const Home = () => {
   const [thisSeasonAnimes, setThisSeasonAnimes] = useState(null);
+  const [totalPageNum, setTotalPageNum] = useState(null);
+  const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
     getThisSeasonAnimes();
   }, []);
 
-  const getThisSeasonAnimes = () => {
+  const getThisSeasonAnimes = (pageNum = 1) => {
     axios
-      .get("http://localhost:8082/anime/this-season-anime", {})
+      .get("https://anime.aninaka-api.net/anime/this-season-anime", {
+        params: {
+          pageNum,
+        },
+      })
       .then((res) => {
         setThisSeasonAnimes(res.data.works);
+        setTotalPageNum(res.data.totalPageNum);
       });
   };
   return (
@@ -32,6 +39,12 @@ const Home = () => {
             </Item>
           ))}
       </div>
+      <Pagination
+        totalPageNum={totalPageNum}
+        pageNum={pageNum}
+        setPageNum={setPageNum}
+        getThisSeasonAnimes={getThisSeasonAnimes}
+      />
     </Wrapper>
   );
 };

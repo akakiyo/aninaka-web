@@ -43,8 +43,8 @@ const Wrapper = styled.div`
   position: relative;
   height: 460px;
   border-radius: 20px;
-  background-color: #f7f4f4;
-  margin: 10px 20px;
+  background-color: #fae8e2;
+  margin: 5px 20px;
 `;
 const RegisterButton = styled.button`
   display: flex;
