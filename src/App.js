@@ -3,7 +3,7 @@ import Layout from "./components/Layout";
 import useAuthUser from "./auth/useAuthUser";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
-import Home from "./routes/Home";
+import Top from "./routes/Top/Top";
 // import FriendList from "./routes/FriendList";
 // import AddFriend from "./routes/AddFriend";
 
@@ -18,7 +18,7 @@ const App = () => {
           <Route exact path="/signup" element={<SignUp />} />
           <Route
             path="/"
-            element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Top /> : <Navigate to="/login" />}
           />
         </Routes>
       </Layout>

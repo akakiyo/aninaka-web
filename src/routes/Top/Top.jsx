@@ -4,7 +4,7 @@ import axios from "axios";
 import Card from "./Card/Card";
 import Pagination from "./Pagination/Pagination";
 
-const Home = () => {
+const Top = () => {
   const [thisSeasonAnimes, setThisSeasonAnimes] = useState(null);
   const [totalPageNum, setTotalPageNum] = useState(null);
   const [pageNum, setPageNum] = useState(1);
@@ -62,4 +62,4 @@ const Item = styled.div`
   height: 100%;
 `;
 
-export default Home;
+export default Top;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Icon from "../../icon/user.svg";
 import useAuthUser from "../../auth/useAuthUser";
 
-const Home = () => {
+const Personal = () => {
   const [userName] = useState();
   const { userId } = useAuthUser();
 
@@ -39,4 +39,4 @@ const AccountInfo = styled.div`
   text-align: left;
 `;
 
-export default Home;
+export default Personal;

@@ -31,7 +31,7 @@ const Header = () => {
       <RightArea>
         <PageTitleArea>
           <Link to="/" style={{ textDecoration: "none" }}>
-            <p>Home</p>
+            <p>Top</p>
           </Link>
           <Link to="/friend-lsit" style={{ textDecoration: "none" }}>
             <p>フレンド</p>
