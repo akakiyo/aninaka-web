@@ -33,6 +33,9 @@ const Header = () => {
           <Link to="/" style={{ textDecoration: "none" }}>
             <p>Top</p>
           </Link>
+          <Link to="/personal" style={{ textDecoration: "none" }}>
+            <p>マイページ</p>
+          </Link>
           <Link to="/friend-lsit" style={{ textDecoration: "none" }}>
             <p>フレンド</p>
           </Link>

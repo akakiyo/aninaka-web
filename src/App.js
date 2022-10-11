@@ -4,6 +4,7 @@ import useAuthUser from "./auth/useAuthUser";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import Top from "./routes/Top/Top";
+import Personal from "./routes/ Personal/Personal";
 // import FriendList from "./routes/FriendList";
 // import AddFriend from "./routes/AddFriend";
 
@@ -16,9 +17,10 @@ const App = () => {
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Top />} />
           <Route
-            path="/"
-            element={isAuthenticated ? <Top /> : <Navigate to="/login" />}
+            path="/personal"
+            element={isAuthenticated ? <Personal /> : <Navigate to="/login" />}
           />
         </Routes>
       </Layout>
